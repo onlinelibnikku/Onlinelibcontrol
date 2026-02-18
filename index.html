@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 NIKKU LIBRARY MANAGER 🔥</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 0, 255, 0.15) 0%, transparent 50%);
+            animation: pulseBG 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulseBG {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .header h1 {
+            font-size: 4em;
+            color: #fff;
+            text-shadow: 
+                0 0 10px #ffd700,
+                0 0 20px #ffd700,
+                0 0 30px #ff00ff,
+                0 0 40px #ff00ff;
+            animation: neonVIP 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes neonVIP {
+            from {
+                text-shadow: 
+                    0 0 10px #fff,
+                    0 0 20px #ffd700,
+                    0 0 30px #ff00ff;
+            }
+            to {
+                text-shadow: 
+                    0 0 15px #fff,
+                    0 0 25px #ffd700,
+                    0 0 35px #ff00ff,
+                    0 0 45px #ffd700;
+            }
+        }
+
+        .credit {
+            color: #ffd700;
+            font-size: 1.8em;
+            margin-top: 10px;
+            text-shadow: 0 0 10px #ff00ff;
+            font-weight: bold;
+        }
+
+        /* Time Display */
+        .time-box {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border: 2px solid #ffd700;
+            border-radius: 50px;
+            padding: 15px 30px;
+            margin: 20px auto;
+            display: inline-block;
+            color: #fff;
+            font-size: 1.3em;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .time-box span {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        /* Upload Card */
+        .upload-card {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid #ffd700;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.3);
+        }
+
+        .upload-card h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 2em;
+            border-bottom: 2px solid #ff00ff;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            color: #ff00ff;
+            margin-bottom: 8px;
+            font-weight: bold;
+            text-shadow: 0 0 5px #ff00ff;
+            font-size: 1.1em;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1.1em;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #ff00ff;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+        }
+
+        .input-group input[readonly] {
+            background: rgba(255, 215, 0, 0.1);
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        /* Delete Option */
+        .delete-option {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid #ff4444;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .delete-option label {
+            color: #ff4444 !important;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            color: #fff !important;
+            margin: 0;
+            font-size: 1em;
+        }
+
+        /* File Upload Area */
+        .file-upload-area {
+            border: 2px dashed #ffd700;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .file-upload-area:hover {
+            border-color: #ff00ff;
+            background: rgba(255, 0, 255, 0.1);
+        }
+
+        .file-upload-area i {
+            font-size: 3em;
+            color: #ffd700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .file-upload-area p {
+            color: #fff;
+            font-size: 1.1em;
+        }
+
+        .file-upload-area span {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        #file-name {
+            margin-top: 15px;
+            color: #ff00ff;
+            font-weight: bold;
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        /* Upload Button */
+        .upload-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #ffd700, #ff00ff, #ffd700);
+            background-size: 200% 200%;
+            border: none;
+            border-radius: 10px;
+            color: #000;
+            font-weight: bold;
+            font-size: 1.3em;
+            cursor: pointer;
+            margin-top: 20px;
+            animation: gradient 3s ease infinite;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .upload-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+        }
+
+        .upload-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* History Card */
+        .history-card {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid #ff00ff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 50px rgba(255, 0, 255, 0.3);
+            max-height: 700px;
+            overflow-y: auto;
+        }
+
+        .history-card h2 {
+            color: #ff00ff;
+            margin-bottom: 20px;
+            font-size: 2em;
+            border-bottom: 2px solid #ffd700;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        /* Library Items */
+        .lib-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #ffd700;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .lib-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 215, 0, 0.1);
+            border-left-color: #ff00ff;
+        }
+
+        .lib-item.current {
+            border-left: 4px solid #00ff00;
+            background: rgba(0, 255, 0, 0.1);
+        }
+
+        .lib-name {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+
+        .lib-current-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #00ff00;
+            color: #000;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .lib-details {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            color: #ff00ff;
+        }
+
+        .lib-time {
+            color: #fff;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .lib-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .download-btn {
+            background: linear-gradient(45deg, #ffd700, #ff00ff);
+            color: #000;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.9em;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+        }
+
+        .delete-btn {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #ff4444;
+            color: #ff4444;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+        }
+
+        .delete-btn:hover {
+            background: #ff4444;
+            color: #000;
+        }
+
+        .make-current-btn {
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+        }
+
+        .make-current-btn:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        /* Status Message */
+        .status-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .status-success {
+            background: rgba(0, 255, 0, 0.2);
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            display: block;
+        }
+
+        .status-error {
+            background: rgba(255, 0, 0, 0.2);
+            border: 2px solid #ff0000;
+            color: #ff0000;
+            display: block;
+        }
+
+        .status-warning {
+            background: rgba(255, 165, 0, 0.2);
+            border: 2px solid #ffa500;
+            color: #ffa500;
+            display: block;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin: 20px 0;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ff00ff);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* Token Display */
+        .token-display {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #ffd700;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 5px;
+            color: #ffd700;
+            font-family: monospace;
+            word-break: break-all;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #ffd700, #ff00ff);
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .credit {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚡ NIKKU LIBRARY MANAGER ⚡</h1>
+            <div class="credit">👑 Created by Proton-owner 👑</div>
+        </div>
+
+        <!-- India Time Display -->
+        <div class="time-box" id="timeDisplay">
+            🇮🇳 India Time: <span>Loading...</span>
+        </div>
+
+        <div class="main-grid">
+            <!-- Upload Section -->
+            <div class="upload-card">
+                <h2>📤 UPLOAD NEW LIBRARY</h2>
+                
+                <div class="input-group">
+                    <label>👤 GITHUB USERNAME</label>
+                    <input type="text" id="githubUser" value="Amansaab1" readonly>
+                </div>
+
+                <div class="input-group">
+                    <label>📁 REPOSITORY</label>
+                    <input type="text" id="repoName" value="onlinelibVip" readonly>
+                </div>
+
+                <div class="input-group">
+                    <label>🔑 GITHUB TOKEN</label>
+                    <input type="text" id="githubToken" value="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" readonly>
+                    <div class="token-display">✅ Token Ready</div>
+                </div>
+
+                <div class="input-group">
+                    <label>📦 LIBRARY NAME</label>
+                    <input type="text" id="libName" placeholder="e.g., libbgmi.so, libvip.so" value="libbgmi.so">
+                </div>
+
+                <!-- Auto Delete Option -->
+                <div class="delete-option">
+                    <label>🗑️ AUTO DELETE SETTINGS</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="autoDelete" checked>
+                        <label>Auto-delete old library before upload</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="keepHistory">
+                        <label>Keep history of deleted libraries</label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>📎 SELECT LIBRARY FILE</label>
+                    <input type="file" id="fileInput" accept=".so" style="display: none;">
+                    <div class="file-upload-area" onclick="document.getElementById('fileInput').click()">
+                        <i>📂</i>
+                        <p>Click to <span>Browse</span> or Drag & Drop</p>
+                        <p style="font-size: 0.9em;">Supported: .so files only</p>
+                    </div>
+                    <div id="file-name">❌ No file selected</div>
+                </div>
+
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+
+                <div class="status-message" id="statusMessage"></div>
+
+                <button class="upload-btn" id="uploadBtn" onclick="uploadToGithub()">
+                    🚀 UPLOAD LIBRARY
+                </button>
+            </div>
+
+            <!-- History Section -->
+            <div class="history-card">
+                <h2>📚 LIBRARY HISTORY</h2>
+                <div id="libHistory">
+                    <div style="color: #ffd700; text-align: center;">Loading history...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== TIME FUNCTIONS ====================
+        function updateIndiaTime() {
+            const options = {
+                timeZone: 'Asia/Kolkata',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            };
+            const indiaTime = new Date().toLocaleString('en-IN', options);
+            document.getElementById('timeDisplay').innerHTML = 
+                `🇮🇳 India Time: <span>${indiaTime}</span>`;
+        }
+        
+        setInterval(updateIndiaTime, 1000);
+        updateIndiaTime();
+
+        // ==================== FILE HANDLING ====================
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                const fileSize = (file.size / 1024).toFixed(2);
+                document.getElementById('file-name').innerHTML = 
+                    `✅ Selected: <span style="color: #ffd700;">${file.name}</span> (${fileSize} KB)`;
+                
+                // Auto-fill library name from file
+                if (!document.getElementById('libName').value) {
+                    document.getElementById('libName').value = file.name;
+                }
+            } else {
+                document.getElementById('file-name').innerHTML = '❌ No file selected';
+            }
+        });
+
+        // ==================== DRAG & DROP ====================
+        const dropArea = document.querySelector('.file-upload-area');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight() {
+            dropArea.style.borderColor = '#ff00ff';
+            dropArea.style.background = 'rgba(255, 0, 255, 0.1)';
+        }
+
+        function unhighlight() {
+            dropArea.style.borderColor = '#ffd700';
+            dropArea.style.background = 'none';
+        }
+
+        dropArea.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length > 0) {
+                document.getElementById('fileInput').files = files;
+                const file = files[0];
+                
+                if (file.name.endsWith('.so')) {
+                    const fileSize = (file.size / 1024).toFixed(2);
+                    document.getElementById('file-name').innerHTML = 
+                        `✅ Selected: <span style="color: #ffd700;">${file.name}</span> (${fileSize} KB)`;
+                    document.getElementById('libName').value = file.name;
+                } else {
+                    showStatus('❌ Please drop a .so file only!', 'error');
+                }
+            }
+        }
+
+        // ==================== UI FUNCTIONS ====================
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.textContent = message;
+            statusDiv.className = `status-message status-${type}`;
+            
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function updateProgress(percent) {
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+            
+            progressBar.style.display = 'block';
+            progressFill.style.width = percent + '%';
+            
+            if (percent >= 100) {
+                setTimeout(() => {
+                    progressBar.style.display = 'none';
+                    progressFill.style.width = '0%';
+                }, 1000);
+            }
+        }
+
+        // ==================== GITHUB API FUNCTIONS ====================
+        async function checkExistingFile(githubUser, repoName, githubToken, libName) {
+            const apiUrl = `https://api.github.com/repos/${githubUser}/${repoName}/contents/releases/download/Mafia/${libName}`;
+            
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `token ${githubToken}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    return { exists: true, sha: data.sha };
+                } else if (response.status === 404) {
+                    return { exists: false, sha: null };
+                } else {
+                    const error = await response.json();
+                    throw new Error(error.message);
+                }
+            } catch (error) {
+                console.error('Check error:', error);
+                return { exists: false, sha: null, error: error.message };
+            }
+        }
+
+        async function deleteFile(githubUser, repoName, githubToken, libName, sha) {
+            const apiUrl = `https://api.github.com/repos/${githubUser}/${repoName}/contents/releases/download/Mafia/${libName}`;
+            
+            const indiaTime = new Date().toLocaleString('en-IN', { 
+                timeZone: 'Asia/Kolkata',
+                hour12: true 
+            });
+            
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `token ${githubToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: `🗑️ Deleted old ${libName} by Proton-owner at ${indiaTime}`,
+                        sha: sha
+                    })
+                });
+                
+                return response.ok;
+            } catch (error) {
+                console.error('Delete error:', error);
+                return false;
+            }
+        }
+
+        async function uploadToGithub() {
+            const githubUser = document.getElementById('githubUser').value;
+            const repoName = document.getElementById('repoName').value;
+            const githubToken = document.getElementById('githubToken').value;
+            let libName = document.getElementById('libName').value.trim();
+            const fileInput = document.getElementById('fileInput');
+            const autoDelete = document.getElementById('autoDelete').checked;
+            const keepHistory = document.getElementById('keepHistory').checked;
+            
+            // Validation
+            if (!libName) {
+                showStatus('❌ Please enter library name!', 'error');
+                return;
+            }
+            
+            // Add .so extension if not present
+            if (!libName.endsWith('.so')) {
+                libName += '.so';
+                document.getElementById('libName').value = libName;
+            }
+            
+            if (!fileInput.files || !fileInput.files[0]) {
+                showStatus('❌ Please select a file!', 'error');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            
+            // Check if it's .so file
+            if (!file.name.endsWith('.so')) {
+                showStatus('❌ Please select a .so file only!', 'error');
+                return;
+            }
+
+            // Disable upload button
+            const uploadBtn = document.getElementById('uploadBtn');
+            uploadBtn.disabled = true;
+            uploadBtn.textContent = '⏳ PROCESSING...';
+            
+            updateProgress(10);
+            
+            try {
+                // Step 1: Check if file already exists
+                showStatus('🔍 Checking for existing library...', 'success');
+                const checkResult = await checkExistingFile(githubUser, repoName, githubToken, libName);
+                
+                updateProgress(30);
+                
+                // Step 2: Delete if exists and auto-delete is enabled
+                if (checkResult.exists && autoDelete) {
+                    showStatus(`🗑️ Deleting old ${libName}...`, 'warning');
+                    
+                    const deleted = await deleteFile(
+                        githubUser, repoName, githubToken, 
+                        libName, checkResult.sha
+                    );
+                    
+                    if (deleted) {
+                        showStatus('✅ Old library deleted successfully!', 'success');
+                        
+                        // Save deleted library to history if keepHistory is enabled
+                        if (keepHistory) {
+                            const history = JSON.parse(localStorage.getItem('deletedLibs') || '[]');
+                            const indiaTime = new Date().toLocaleString('en-IN', { 
+                                timeZone: 'Asia/Kolkata',
+                                hour12: true 
+                            });
+                            
+                            history.push({
+                                name: libName,
+                                action: 'deleted',
+                                time: indiaTime,
+                                oldSha: checkResult.sha
+                            });
+                            
+                            localStorage.setItem('deletedLibs', JSON.stringify(history));
+                        }
+                    } else {
+                        showStatus('⚠️ Could not delete old library, continuing...', 'warning');
+                    }
+                } else if (checkResult.exists && !autoDelete) {
+                    // Ask user if they want to overwrite
+                    if (!confirm(`⚠️ ${libName} already exists! Do you want to overwrite?`)) {
+                        showStatus('❌ Upload cancelled', 'error');
+                        uploadBtn.disabled = false;
+                        uploadBtn.textContent = '🚀 UPLOAD LIBRARY';
+                        updateProgress(0);
+                        return;
+                    }
+                    
+                    // Delete the existing file
+                    showStatus(`🗑️ Deleting existing ${libName}...`, 'warning');
+                    await deleteFile(githubUser, repoName, githubToken, libName, checkResult.sha);
+                }
+                
+                updateProgress(50);
+                
+                // Step 3: Read and upload new file
+                showStatus('📤 Uploading new library...', 'success');
+                
+                const reader = new FileReader();
+                
+                reader.onload = async function(e) {
+                    const content = e.target.result.split(',')[1];
+                    
+                    // GitHub API URL
+                    const apiUrl = `https://api.github.com/repos/${githubUser}/${repoName}/contents/releases/download/Mafia/${libName}`;
+                    
+                    // India time for commit message
+                    const indiaTime = new Date().toLocaleString('en-IN', { 
+                        timeZone: 'Asia/Kolkata',
+                        hour12: true 
+                    });
+                    
+                    updateProgress(70);
+                    
+                    // Prepare request
+                    const response = await fetch(apiUrl, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${githubToken}`,
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            message: `🔥 VIP Upload: ${libName} by Proton-owner at ${indiaTime}`,
+                            content: content
+                        })
+                    });
+
+                    updateProgress(90);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        
+                        // Save to history
+                        const history = JSON.parse(localStorage.getItem('vipHistory') || '[]');
+                        const downloadUrl = `https://github.com/${githubUser}/${repoName}/raw/refs/heads/main/releases/download/Mafia/${libName}`;
+                        
+                        history.push({
+                            name: libName,
+                            size: (file.size / 1024).toFixed(2) + ' KB',
+                            time: indiaTime,
+                            url: downloadUrl,
+                            sha: data.content.sha,
+                            isCurrent: true
+                        });
+                        
+                        // Mark previous libraries as not current
+                        const updatedHistory = history.map((item, index) => {
+                            if (item.name === libName && index !== history.length - 1) {
+                                item.isCurrent = false;
+                            }
+                            return item;
+                        });
+                        
+                        localStorage.setItem('vipHistory', JSON.stringify(updatedHistory));
+                        
+                        updateProgress(100);
+                        showStatus('✅✅✅ UPLOAD SUCCESSFUL! ✅✅✅', 'success');
+                        loadHistory();
+                        
+                        // Clear form
+                        document.getElementById('fileInput').value = '';
+                        document.getElementById('file-name').innerHTML = '❌ No file selected';
+                        
+                        // Show success with download link
+                        setTimeout(() => {
+                            alert(`✅ Upload Successful!\n\n📥 Download Link:\n${downloadUrl}`);
+                        }, 500);
+                        
+                    } else {
+                        const error = await response.json();
+                        showStatus(`❌ Upload Failed: ${error.message}`, 'error');
+                        console.error('Upload error:', error);
+                    }
+                    
+                    uploadBtn.disabled = false;
+                    uploadBtn.textContent = '🚀 UPLOAD LIBRARY';
+                };
+                
+                reader.readAsDataURL(file);
+                
+            } catch (error) {
+                showStatus(`❌ Error: ${error.message}`, 'error');
+                console.error('Error:', error);
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = '🚀 UPLOAD LIBRARY';
+                updateProgress(0);
+            }
+        }
+
+        // ==================== HISTORY FUNCTIONS ====================
+        function loadHistory() {
+            const history = JSON.parse(localStorage.getItem('vipHistory') || '[]');
+            const historyDiv = document.getElementById('libHistory');
+            
+            if (history.length === 0) {
+                historyDiv.innerHTML = '<div style="color: #ffd700; text-align: center; padding: 30px;">📭 No upload history yet</div>';
+                return;
+            }
+            
+            // Show last 20 uploads
+            const recentHistory = history.reverse().slice(0, 20);
+            
+            historyDiv.innerHTML = recentHistory.map((lib, index) => `
+                <div class="lib-item ${lib.isCurrent ? 'current' : ''}">
+                    ${lib.isCurrent ? '<span class="lib-current-badge">CURRENT</span>' : ''}
+                    <div class="lib-name">📦 ${lib.name}</div>
+                    <div class="lib-details">
+                        <span>📊 ${lib.size}</span>
+                        <span>🔗 ${lib.url.split('/').pop()}</span>
+                    </div>
+                    <div class="lib-time">🕐 ${lib.time}</div>
+                    <div class="lib-actions">
+                        <a href="${lib.url}" target="_blank" class="download-btn">📥 Download</a>
+                        <button class="make-current-btn" onclick="makeCurrent('${lib.name}', ${index})">⭐ Set Current</button>
+                        <button class="delete-btn" onclick="deleteFromHistory(${index})">🗑️ Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function makeCurrent(libName, index) {
+            const history = JSON.parse(localStorage.getItem('vipHistory') || '[]');
+            
+            // Mark all as not current
+            history.forEach(item => {
+                item.isCurrent = false;
+            });
+            
+            // Mark selected as current
+            const actualIndex = history.length - 1 - index;
+            history[actualIndex].isCurrent = true;
+            
+            localStorage.setItem('vipHistory', JSON.stringify(history));
+            loadHistory();
+            
+            showStatus(`✅ ${libName} set as current library`, 'success');
+        }
+
+        function deleteFromHistory(index) {
+            if (confirm('⚠️ Delete this library from history?')) {
+                const history = JSON.parse(localStorage.getItem('vipHistory') || '[]');
+                const actualIndex = history.length - 1 - index;
+                
+                history.splice(actualIndex, 1);
+                localStorage.setItem('vipHistory', JSON.stringify(history));
+                loadHistory();
+                
+                showStatus('✅ Library removed from history', 'success');
+            }
+        }
+
+        // ==================== INITIAL LOAD ====================
+        loadHistory();
+    </script>
+</body>
+</html>
